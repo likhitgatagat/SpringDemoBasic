@@ -1,0 +1,165 @@
+<?xml  version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+<beans>
+	<bean id="taskExecutor" class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+		<property name="corePoolSize" value="5" />
+		<property name="maxPoolSize" value="10" />
+		<property name="queueCapacity" value="25" />
+	</bean>
+	<bean id="taskExecutorExample" class="org.likhit.sprigify.TaskExecutorExample">
+		<constructor-arg ref="taskExecutor"/>
+	</bean>
+	
+	<bean id="shape" class = "com.likhit.entity.Shape">
+		<constructor-arg type="java.lang.String" value="Shape"/>
+	</bean>
+
+	<bean id="triangle" class = "com.likhit.shapes.Triangle">
+		<constructor-arg type="java.lang.String" value="Equilateral Triangle"/>
+	</bean>
+	
+	<bean id="employee" class="com.likhit.entity.Employee">
+		<constructor-arg type="java.lang.String" value="Likhit"/>
+		<constructor-arg type="int" value="415000"/>
+		<constructor-arg ref="address"/>
+		<constructor-arg type="java.util.Set">
+			<set>
+				<ref bean="java"/>
+				<ref bean="spring"/>
+				<ref bean="hibernate"/>
+				<ref bean="sql"/>
+			</set>
+		</constructor-arg>
+		<constructor-arg>
+			<bean class="org.springframework.beans.factory.config.MapFactoryBean">
+		        <property name="targetMapClass">
+		          <value>java.util.TreeMap</value>
+		        </property>
+		        <property name="sourceMap">
+		          <map>
+						<entry key="Backet Tilly" value="Finance"/>
+						<entry key="AlcoSoft" value="Retail"/>
+						<entry key="SSFT" value="Forecast"/>
+						<entry key="Allinaz" value="Insurance"/>
+					</map>
+		        </property>
+		      </bean>		
+		</constructor-arg>
+		<constructor-arg>
+			<bean class="org.springframework.beans.factory.config.MapFactoryBean">
+		        <property name="targetMapClass">
+		          <value>java.util.TreeMap</value>
+		        </property>
+		        <property name="sourceMap">
+		          <map>
+						<entry key-ref="java" value-ref="javaSubSkills"/>
+						<entry key-ref="spring" value-ref="springSubSkills"/>
+						<entry key-ref="hibernate" value-ref="hibernateSubSkills"/>
+						<entry key-ref="sql" value-ref="sqlSkills"/>
+					</map>
+		        </property>
+		      </bean>		
+		</constructor-arg>
+	</bean>
+	
+	<bean id="address" class="com.likhit.entity.Address">
+		<constructor-arg index="0" value="Pune-Satara road"/>
+		<constructor-arg index="1" value="Pune"/>
+		<constructor-arg index="2" value="411043"/>
+		<constructor-arg index="3" value="Maharashtra"/>
+	</bean>
+	
+	<bean id="address2" class="com.likhit.entity.Address">
+		<constructor-arg index="0" value="Nagar road"/>
+		<constructor-arg index="1" value="Pune"/>
+		<constructor-arg index="2" value="411012"/>
+		<constructor-arg index="3" value="Maharashtra"/>
+	</bean>
+	
+	<bean id="java" class="com.likhit.entity.Skills">
+		<constructor-arg index="0" value="Java"/>
+	</bean>
+	
+	<bean id="spring" class="com.likhit.entity.Skills">
+		<constructor-arg index="0" value="Spring"/>
+	</bean>
+	
+	<bean id="hibernate" class="com.likhit.entity.Skills">
+		<constructor-arg index="0" value="Hibernate"/>
+	</bean>
+	
+	<bean id="sql" class="com.likhit.entity.Skills">
+		<constructor-arg index="0" value="SQL"/>
+	</bean>
+	
+	<bean id="javaSubSkills" class="com.likhit.entity.SubSkills">
+		<constructor-arg type="java.util.Set">
+			<set>
+				<value>Core Java</value>
+				<value>Advance Java</value>
+			</set>
+		</constructor-arg>
+	</bean>
+	
+	<bean id="springSubSkills" class="com.likhit.entity.SubSkills">
+		<constructor-arg type="java.util.Set">
+			<set>
+				<value>AOP</value>
+				<value>DI</value>
+				<value>Transactions</value>
+			</set>
+		</constructor-arg>
+	</bean>
+	
+	<bean id="hibernateSubSkills" class="com.likhit.entity.SubSkills">
+		<constructor-arg type="java.util.Set">
+			<set>
+				<value>Hibernate</value>
+			</set>
+		</constructor-arg>
+	</bean>
+	
+	<bean id="sqlSkills" class="com.likhit.entity.SubSkills">
+		<constructor-arg type="java.util.Set">
+			<set>
+				<value>MySQL</value>
+				<value>DB2</value>
+			</set>
+		</constructor-arg>
+	</bean>
+	
+	<bean id="employee2" class= "com.likhit.entity.Employee" parent="employee"/>
+	
+	<bean id = "student1" class = "com.likhit.entity.Student">
+		<property name="firstName" value="Likhit"/>
+		<property name="lastName" value="Gatagat"/>
+		<property name="grade" value="XII"/>
+		<property name="address" ref="address"/>
+		<property name="subjects">
+			<set>
+				<bean id="sub1" class = "com.likhit.entity.Subject">
+					<property name="name" value="Java"/>
+				</bean>
+				
+				<bean id="sub2" class = "com.likhit.entity.Subject">
+					<property name="name" value="Groovy"/>
+				</bean>
+				
+				<bean id="sub3" class = "com.likhit.entity.Subject">
+					<property name="name" value="Scala"/>
+				</bean>
+				
+				<bean id="sub4" class = "com.likhit.entity.Subject">
+					<property name="name" value="Python"/>
+				</bean>
+			</set>
+		</property>
+		<property name="teachers">
+			<map>
+				<entry key="Vijay Gokhale" value="Unix"/>
+				<entry key="Jayesh Ghughu" value="Nothing"/>
+				<entry key="Satish Bora" value="Kisckstart"/>
+			</map>
+		</property>
+	</bean>
+</beans>
